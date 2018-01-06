@@ -1,0 +1,30 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "firstName": "Parwat",
+            "lastName": "Kunwar",
+            "userName": "p0k8_",
+            "email": "parwatkunwar08@gmail.com",
+            "isEmailVerified": 0,
+            "emailVerificationToken": "e232d23r23534efe",
+            "isEmailVerificationTokenExpired": 1,
+            "password": "**********",
+            "passwordResetToken": "123rff144dsf23ff44",
+            "isPasswordResetTokenExpired": 1
+        },
+        {
+            "id": 2,
+            "firstName": "Rajan",
+            "lastName": "Maharjan",
+            "userName": "r0m8_",
+            "email": "rajanmaharjan08@gmail.com",
+            "isEmailVerified": 0,
+            "emailVerificationToken": "idsdjs24o434--=23",
+            "isEmailVerificationTokenExpired": 1,
+            "password": "@##@##@####@@",
+            "passwordResetToken": "dfaskf23325235oo",
+            "isPasswordResetTokenExpired": 1
+        }
+    ]
+}
