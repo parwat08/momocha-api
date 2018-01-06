@@ -23,12 +23,21 @@ export default new GraphQLObjectType({
         },
         firstName: {
             type: GraphQLString,
+            resolve(parent) {
+                return parent.f_name;
+            }
         },
         lastName: {
             type: GraphQLString,
+            resolve(parent) {
+                return parent.l_name;
+            }
         },
         userName: {
-            type: GraphQLString
+            type: GraphQLString,
+            resolve(parent) {
+                return parent.u_name;
+            }
         },
         email: {
             type: GraphQLEmail,

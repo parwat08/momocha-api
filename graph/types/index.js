@@ -1,6 +1,7 @@
 import {
     GraphQLObjectType,
     GraphQLString,
+    GraphQLInt,
     GraphQLList,
 } from 'graphql';
 import {
@@ -19,10 +20,10 @@ export default new GraphQLObjectType({
         user: {
             type: GraphQLList(UserType),
             args: {
-                id: { type: GraphQLString }
+                id: { type: GraphQLInt }
             },
             resolve(parent, { id }) {
-                if (id) return find(users, (user) => user.id === id);
+                // if (id) return find(users, (user) => user.id === id);
                 return users;
             }
         }
