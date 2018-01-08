@@ -18,7 +18,7 @@ const userSchema = new Schema({
     phone: String,
     country: String,
     city: String,
-    verified: {
+    isVerified: {
         type: Boolean,
         default: false,
     }

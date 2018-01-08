@@ -23,4 +23,4 @@ verificationTokenSchema.methods = {
     }
 }
 
-export default model('verificationToke', verificationTokenSchema);
+export default model('verificationToken', verificationTokenSchema);
