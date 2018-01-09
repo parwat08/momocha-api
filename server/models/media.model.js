@@ -1,8 +1,8 @@
-import { Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 
 const mediaSchema = new Schema({
     _uploaderId: {
-        type: Schema.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'user',
         required: true,
     },
