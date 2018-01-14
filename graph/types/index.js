@@ -4,12 +4,9 @@ import {
     GraphQLInt,
     GraphQLList,
 } from 'graphql';
-import {
-    find,
-} from 'lodash';
 
-import UserType from './user.type';
 import { users } from '../../mocks/users.json';
+import UserType from './user.type';
 
 /**
  * RootQuery
@@ -23,7 +20,6 @@ export default new GraphQLObjectType({
                 id: { type: GraphQLInt }
             },
             resolve(parent, { id }) {
-                // if (id) return find(users, (user) => user.id === id);
                 return users;
             }
         }

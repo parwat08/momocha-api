@@ -6,10 +6,18 @@ const mediaSchema = new Schema({
         ref: 'user',
         required: true,
     },
-    title: {
+    caption: {
         type: String,
         required: true,
     },
+    approval_status: Boolean,
+    duration: Number, // total duration 
+    language: String,
+    media_url: String,
+    poster_url: String,
+    shares: Number,
+    momochas: Number, // likes
+    listens: Number,
     uploadedDate: {
         type: Date,
         default: Date.now,
@@ -23,7 +31,7 @@ const mediaSchema = new Schema({
         // TODO: provide a list of enums,
         type: String,
     },
-    "type": {
+    media_type: {
         type: String,
         enum: ['audio', 'video', 'gif', 'pic'],
         required: true,
