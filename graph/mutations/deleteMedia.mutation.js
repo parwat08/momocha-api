@@ -2,15 +2,12 @@ import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLNonNull } from
 import {
     mutationWithClientMutationId
 } from 'graphql-relay';
-import { signup } from '../../server/services/auth.service';
+import { deleteMedia } from '../../server/services/media.service';
 
 export default mutationWithClientMutationId({
-    name: 'SignUp',
+    name: 'deleteMedia',
     inputFields: {
-        email: {
-            type: new GraphQLNonNull(GraphQLString),
-        },
-        password: {
+        _id: {
             type: new GraphQLNonNull(GraphQLString),
         },
     },
@@ -20,6 +17,6 @@ export default mutationWithClientMutationId({
         }
     },
     mutateAndGetPayload(inputFields) {
-        return signup(inputFields);
+        return deleteMedia(inputFields);
     }
 });

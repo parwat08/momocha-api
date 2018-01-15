@@ -2,10 +2,10 @@ import { GraphQLObjectType, GraphQLString, GraphQLBoolean, GraphQLNonNull } from
 import {
     mutationWithClientMutationId
 } from 'graphql-relay';
-import { signup } from '../../server/services/auth.service';
+import { login } from '../../server/services/auth.service';
 
 export default mutationWithClientMutationId({
-    name: 'SignUp',
+    name: 'LogIn',
     inputFields: {
         email: {
             type: new GraphQLNonNull(GraphQLString),
@@ -15,11 +15,11 @@ export default mutationWithClientMutationId({
         },
     },
     outputFields: {
-        msg: {
+        token: {
             type: GraphQLString,
         }
     },
     mutateAndGetPayload(inputFields) {
-        return signup(inputFields);
+        return login(inputFields);
     }
 });
