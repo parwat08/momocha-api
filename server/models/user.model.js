@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import { Schema, model } from 'mongoose';
+import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 let SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema({
@@ -16,15 +17,18 @@ const userSchema = new Schema({
     u_name: String,
     f_name: String,
     l_name: String,
-    mobileNumber: String,
     country: String,
+    mobileNumber: String,
     city: String,
     age: Number,
     isVerified: {
         type: Boolean,
         default: false,
     }
+}, {
+    timestamps: true,
 });
+
 
 userSchema.pre('save', function (cb) {
     let user = this;
@@ -60,4 +64,4 @@ userSchema.methods = {
     }
 }
 
-export default model('user', userSchema);
+export default  mongoose.model('user', userSchema);

@@ -1,8 +1,10 @@
-import { Schema, Types, model } from 'mongoose';
+import mongoose from 'mongoose';
+
+const Schema = mongoose.Schema;
 
 const mediaSchema = new Schema({
     _uploaderId: {
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'user',
         required: true,
     },
@@ -10,7 +12,7 @@ const mediaSchema = new Schema({
         type: String,
         required: true,
     },
-    approval_status: Boolean,
+    // approval_status: Boolean,
     duration: Number, // total duration 
     language: String,
     media_url: String,
@@ -25,7 +27,6 @@ const mediaSchema = new Schema({
     },
     tags: [{
         name: String,
-        required: true,
     }],
     category: {
         // TODO: provide a list of enums,
@@ -40,4 +41,4 @@ const mediaSchema = new Schema({
         timestamps: true,
     });
 
-export default model('media', mediaSchema);
+export default mongoose.model('media', mediaSchema);

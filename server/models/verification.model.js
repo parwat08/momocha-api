@@ -1,22 +1,27 @@
-import { Schema, Types, model } from 'mongoose';
+import mongoose from 'mongoose';
 import uuid from 'node-uuid';
+
+const Schema = mongoose.Schema;
 
 const verificationTokenSchema = new Schema({
     _userId: {
-        type: Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'user',
     },
-    token: {
+    token_type: {
         type: String,
         required: true,
-        enum: ['auth', 'reset'],
+        enum: ['verify', 'reset'],
     },
+    token: String,
     createdAt: {
         type: Date,
         required: true,
         default: Date.now,
         expires: "1h"
     }
+}, {
+    timestamps: true,
 });
 
 verificationTokenSchema.methods = {
@@ -33,4 +38,4 @@ verificationTokenSchema.methods = {
     }
 }
 
-export default model('verificationToken', verificationTokenSchema);
+export default mongoose.model('verificationToken', verificationTokenSchema);
