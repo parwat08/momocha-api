@@ -15,5 +15,5 @@ app.use('/graphql', expressGraphQL({
 
 app.listen(3000, (err) => {
     if (err) return console.log('error starting the server');
-    return console.log('serever listening');
+    return console.log('server listening on 3000');
 });
