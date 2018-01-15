@@ -3,8 +3,10 @@ import bodyParser from 'body-parser';
 import expressGraphQL from 'express-graphql';
 
 import schema from './graph/schema';
+import mongoConnection from './server/config/mongo.config';
 
 const app = express();
+mongoConnection(app);
 
 app.use('/graphql', expressGraphQL({
     schema,
