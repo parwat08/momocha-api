@@ -21,6 +21,7 @@ const userSchema = new Schema({
     mobileNumber: String,
     city: String,
     age: Number,
+    social: Boolean,
     isVerified: {
         type: Boolean,
         default: false,
