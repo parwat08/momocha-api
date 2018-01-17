@@ -5,38 +5,47 @@ import {
     FACEBOOK_APP_ID,
     FACEBOOK_APP_SECRET,
     FACEBOOK_APP_OAUTH_URL,
-    FACEBOOK_APP_GRAPH_URL,
+    FACEBOOK_APP_GRAPH_API_URL,
     FACEBOOK_CALLBACK_URL,
+    FACEBOOK_APP_GRAPH_OAUTH_ACCESS_TOKEN_URL,
 } from '../config/keys.config';
 
 import UserModel from '../models/user.model';
 
 export async function facebookProfile(req) {
 
-    let accessTokenUrl = FACEBOOK_APP_OAUTH_URL;
-    let graphApiUri = FACEBOOK_APP_GRAPH_URL;
+    let graphApiUrlForAccessToken = FACEBOOK_APP_GRAPH_OAUTH_ACCESS_TOKEN_URL;
+    let graphApiUrl = FACEBOOK_APP_GRAPH_API_URL;
 
     let params = {
-        code: req.body.code,
-        client_id: req.body.client_id,
-        client_secret: req.body.client_secret,
-        redirect_uri: req.body.redirectUri,
+        code: req.query.code,
+        client_id: FACEBOOK_APP_ID,
+        client_secret: FACEBOOK_APP_SECRET,
+        redirect_uri: FACEBOOK_CALLBACK_URL,
         scope: 'email',
     };
 
     try {
-        let response = await axios.get(accessTokenUrl, params);
-        console.log('=======', response)
-        let params = _.assign({}, response);
+        let access_token = await axios.get(graphApiUrlForAccessToken, {
+            params
+        }).then(response => {
+            if (response.status === 200 && response.statusText === 'OK') return response.body.access_token;
+        }).catch(e => console.log('1sr erroo'))
+        console.log('accesstoken', access_token);
+        let params = _.assign({}, access_token);
         _.assign(params, {
             fields: 'id, name, picture, email',
         });
-
-        let profile = await axios(graphApiUri, params);
+        console.log('params', params)
+        let profile = await axios(graphApiUrl, {
+            params,
+        }).then(response => response.data)
+        .catch(err => console.log('2nd error'))
+        console.log('profile', profile);
         return profile;
 
     } catch (error) {
-        console.log('error while accessing facebook authentication!');
+        console.log('error while accessing facebook authentication!', error);
     }
 }
 
