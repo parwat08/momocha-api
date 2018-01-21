@@ -1,12 +1,16 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import expressGraphQL from 'express-graphql';
+import dotenv from 'dotenv';
 
 import schema from './graph/schema';
 import routes from './server/routes';
 import mongoConnection from './server/config/mongo.config';
 
 const app = express();
+// dotenv.load({
+//     path: '.env',
+// });
 mongoConnection(app);
 
 app.use('/api', routes);

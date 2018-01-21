@@ -1,5 +1,6 @@
 import axios from 'axios';
 import _ from 'lodash';
+import fs from 'fs';
 
 import {
     FACEBOOK_APP_ID,
@@ -22,27 +23,36 @@ export async function facebookProfile(req) {
         client_id: FACEBOOK_APP_ID,
         client_secret: FACEBOOK_APP_SECRET,
         redirect_uri: FACEBOOK_CALLBACK_URL,
-        scope: 'email',
+        // scope: 'email',
     };
 
     try {
-        let access_token = await axios.get(graphApiUrlForAccessToken, {
+
+        // TODO: created by parwat @ 1/22/2018, 12:25:04 AM
+        /**
+         * code formatting and optimization yet to be done!!!!
+         */
+
+        return await axios.get(graphApiUrlForAccessToken, {
             params
-        }).then(response => {
-            if (response.status === 200 && response.statusText === 'OK') return response.body.access_token;
+        }).then(async response => {
+            if (response.status === 200 && response.statusText === 'OK') {
+                let data = response.data;
+                let access_token = data.access_token;
+                let params = _.assign({}, { access_token });
+                _.assign(params, {
+                    fields: 'id, name, picture, email',
+                });
+
+                return await axios.get(graphApiUrl, {
+                    params,
+                }).then(response => {
+
+                    return response.data;
+                }).catch(err => console.log('2nd error'))
+
+            }
         }).catch(e => console.log('1sr erroo'))
-        console.log('accesstoken', access_token);
-        let params = _.assign({}, access_token);
-        _.assign(params, {
-            fields: 'id, name, picture, email',
-        });
-        console.log('params', params)
-        let profile = await axios(graphApiUrl, {
-            params,
-        }).then(response => response.data)
-        .catch(err => console.log('2nd error'))
-        console.log('profile', profile);
-        return profile;
 
     } catch (error) {
         console.log('error while accessing facebook authentication!', error);
@@ -60,7 +70,7 @@ export async function loginFacebook(profile) {
 
 export async function registerFacebook(profile) {
     let user = new UserModel();
-    user.facebook = profie.id;
+    user.facebook = profile.id;
     user.picture = `https://graph.facebook.com${profile.id}/picture?type=large`;
     user.displayName = profile.name;
     user.email = profile.email;
@@ -69,7 +79,7 @@ export async function registerFacebook(profile) {
 
     user.save((err) => {
         if (err) {
-            if (e.name === 'MongoError' && e.code === 11000) {
+            if (err.name === 'MongoError' && err.code === 11000) {
                 return 'email already registered!';
             }
             return err;

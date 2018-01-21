@@ -1,9 +1,12 @@
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 
+const JWT_SECRET = process.env.JWT_SECRET || 'xyz123';
+const algorithm = process.env.ALGORITHM || 'RS256';
+
 export function generateToken(user) {
     let options = {
-        algorithm: process.env.ALGORITHM,
+        algorithm,
     };
 
     let payload = {
@@ -12,9 +15,7 @@ export function generateToken(user) {
         exp: moment().add(7, 'day').unix(),
     }
 
-    const JWT_SECRET = process.env.JWT_SECRET;
-
-    return jwt.sign(payload, JWT_SECRET, options);
+    return jwt.sign(payload, JWT_SECRET);
 
 }
 
@@ -30,7 +31,7 @@ export function getToken(headers) {
 export function decodeToken(headers) {
     let token = getToken(headers);
     if (token) {
-        const JWT_SECRET = process.env.JWT_SECRET;
+        // const JWT_SECRET = process.env.JWT_SECRET;
         let decoded = jwt.verify(token, JWT_SECRET);
         return decoded;
     }

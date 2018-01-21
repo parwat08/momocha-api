@@ -15,8 +15,7 @@ export const GOOGLE_APP_API_KEY = 'AIzaSyBVWSlAKvDtyI-sX4dCDVDWd52Ax8jOWKc';
 export const GOOGLE_APP_CLIENT_ID = '322415290174-co2i28tdkfv1h133uat4gnar484b91l1.apps.googleusercontent.com';
 export const GOOGLE_APP_CLIENT_SECRET = 'peiBb74OUpMA8kce1XQHV2ND';
 export const GOOGLE_APP_OAUTH_CODE_URL = 'https://accounts.google.com/o/oauth2/auth';
-export const
 
-const url = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&include_granted_scopes=truestate=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/api/auth/google/cb&response_type=code&client_id=client_id';
+// const url = 'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&include_granted_scopes=truestate=state_parameter_passthrough_value&redirect_uri=http://localhost:3000/api/auth/google/cb&response_type=code&client_id=client_id'
 
 const scope = 'https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile'

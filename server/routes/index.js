@@ -1,21 +1,22 @@
 import { Router } from 'express';
 import { facebookProfile, loginFacebook, registerFacebook, } from '../auth/facebook.auth';
-import jwt from '../helpers/jwt.helper';
+import { generateToken, getToken, decodeToken, } from '../helpers/jwt.helper';
 
 const router = Router();
 
 router.get('/auth/facebook/cb', async function (req, res) {
-    // res.send(req.query.code)
     try {
         let profile = await facebookProfile(req);
-    //     let data = await loginFacebook(profile);
+        let data = await loginFacebook(profile);
 
-    //     if (data.unr) {
-    //         let rData = await registerFacebook(profile);
-    //         return jwt.generateToken(profile);
-    //     } else {
-    //         return jwt.generateToken(profile);
-    //     }
+        if (data.unr) {
+            let rData = await registerFacebook(profile);
+            let token = generateToken(profile);
+            return res.send(token);
+        } else {
+            let token = generateToken(profile);
+            return res.send(token);
+        }
     } catch (error) {
         console.log('error facebook signing', error);
     }
