@@ -68,6 +68,11 @@ export async function loginFacebook(profile) {
     return { unr: true }
 }
 
+// FIXME: noticed by parwat @ 1/22/2018, 9:47:17 AM
+/**
+ * password is a required field in user model but, when a user does a social login he doesn't provide a password, instead access token for authentication
+ */
+
 export async function registerFacebook(profile) {
     let user = new UserModel();
     user.facebook = profile.id;
@@ -78,6 +83,9 @@ export async function registerFacebook(profile) {
     user.social = true;
 
     user.save((err) => {
+        console.log('------------------------------------');
+        console.log(err);
+        console.log('------------------------------------');
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
                 return 'email already registered!';
