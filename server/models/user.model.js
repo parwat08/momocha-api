@@ -10,10 +10,7 @@ const userSchema = new Schema({
         unique: true,
         index: true,
     },
-    password: {
-        type: String,
-        required: true,
-    },
+    password: String,
     u_name: String,
     f_name: String,
     l_name: String,
@@ -21,14 +18,20 @@ const userSchema = new Schema({
     mobileNumber: String,
     city: String,
     age: Number,
-    social: Boolean,
+    facebook: String,
+    twitter: String,
+    google: String,
+    social: {
+        type: Boolean,
+        default: false,
+    },
     isVerified: {
         type: Boolean,
         default: false,
     }
 }, {
-    timestamps: true,
-});
+        timestamps: true,
+    });
 
 
 userSchema.pre('save', function (cb) {
@@ -65,4 +68,4 @@ userSchema.methods = {
     }
 }
 
-export default  mongoose.model('user', userSchema);
+export default mongoose.model('user', userSchema);
