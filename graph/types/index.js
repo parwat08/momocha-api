@@ -1,48 +1,42 @@
+import { GraphQLObjectType } from "graphql";
+import uniqueString from "unique-string";
 import {
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLList,
-} from 'graphql';
+  connectionArgs,
+  connectionFromPromisedArray,
+  globalIdField
+} from "graphql-relay";
 
-import { users } from '../../mocks/users.json';
-import UserType from './user.type';
-import MediaType from './media.type';
+import { userConnection, mediaConnection } from "../connections";
+import UserModel from "../../server/models/user.model";
+import nodeDefs from "../nodes";
 
-/**
- * RootQuery
- */
-
+// Root query
 const viewer = new GraphQLObjectType({
-    name: 'Viewer',
-    fields: () => ({
-        user: {
-            type: GraphQLList(UserType),
-            args: {
-                id: { type: GraphQLInt }
-            },
-            resolve(parent, { id }) {
-                return users;
-            }
-        },
-        media: {
-            type: new GraphQLList(GraphQLString),
-            args: {
-
-            },
-            resolve(parent, args) {
-                return 'media from db queries';
-            }
-        }
-    })
-})
+  name: "Viewer",
+  fields: () => ({
+    id: globalIdField("Viewer"),
+    user: {
+      type: userConnection.connectionType,
+      args: connectionArgs,
+      resolve: (parent, args) =>
+        connectionFromPromisedArray(UserModel.find(), args)
+    },
+    media: {
+      type: mediaConnection.connectionType,
+      args: connectionArgs,
+      resolve: (parent, args) => connectionFromPromisedArray()
+    }
+  }),
+  interfaces: [nodeDefs.nodeInterface]
+});
 
 export default new GraphQLObjectType({
-    name: 'RootQueryType',
-    fields: () => ({
-        viewer: {
-            type: viewer,
-            resolve: () => viewer,
-        }
-    })
+  name: "RootQueryType",
+  fields: () => ({
+    node: nodeDefs.nodeField,
+    viewer: {
+      type: viewer,
+      resolve: () => viewer
+    }
+  })
 });

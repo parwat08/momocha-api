@@ -1,19 +1,20 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const mediaSchema = new Schema({
+const mediaSchema = new Schema(
+  {
     _uploaderId: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-        required: true,
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true
     },
     caption: {
-        type: String,
-        required: true,
+      type: String,
+      required: true
     },
     // approval_status: Boolean,
-    duration: Number, // total duration 
+    duration: Number, // total duration
     language: String,
     media_url: String,
     poster_url: String,
@@ -21,24 +22,28 @@ const mediaSchema = new Schema({
     momochas: Number, // likes
     listens: Number,
     uploadedDate: {
-        type: Date,
-        default: Date.now,
-        required: true,
+      type: Date,
+      default: Date.now,
+      required: true
     },
-    tags: [{
-        name: String,
-    }],
+    tags: [
+      {
+        name: String
+      }
+    ],
     category: {
-        // TODO: provide a list of enums,
-        type: String,
+      // TODO: provide a list of enums,
+      type: String
     },
     media_type: {
-        type: String,
-        enum: ['audio', 'video', 'gif', 'pic'],
-        required: true,
+      type: String,
+      enum: ["audio", "video", "gif", "pic"],
+      required: true
     }
-}, {
-        timestamps: true,
-    });
+  },
+  {
+    timestamps: true
+  }
+);
 
-export default mongoose.model('media', mediaSchema);
+export default mongoose.model("media", mediaSchema);

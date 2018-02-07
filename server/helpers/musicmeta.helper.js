@@ -1,9 +1,9 @@
-import fs from 'fs';
-import mm from 'musicmetadata';
+import fs from "fs";
+import mm from "musicmetadata";
 
-export default async function getMusicMetaData(params) {
-  let readableStream = fs.createReadStream('sample.mp3');
-  let parser = mm(readableStream, function (err, metadata) {
+export default async function getMusicMetaData() {
+  const readableStream = fs.createReadStream("sample.mp3");
+  const parser = mm(readableStream, (err, metadata) => {
     if (err) throw err;
 
     readableStream.close();
