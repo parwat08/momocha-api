@@ -1,5 +1,5 @@
 import { GraphQLObjectType } from "graphql";
-import uniqueString from "unique-string";
+
 import {
   connectionArgs,
   connectionFromPromisedArray,
