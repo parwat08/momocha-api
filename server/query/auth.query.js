@@ -15,14 +15,24 @@ export async function signup({ email, password }) {
 }
 
 export async function login({ email, password }) {
-  const user = await UserModel.findOne({ email }).exec();
-  if (!user) return "Authentication failed. User not found.";
+  try {
+    const user = await UserModel.findOne({ email }).exec();
+    if (!user) return "Authentication failed. User not found.";
 
-  const isPassVerified = await user.isPasswordVerified(password);
-  if (!isPassVerified) return "Authentication failed, Wrong password!";
+    const isPassVerified = await user.isPasswordVerified(password);
+    if (!isPassVerified) return "Authentication failed, Wrong password!";
 
-  const token = generateToken(user);
-  return token;
+    const token = generateToken(user);
+    return {
+      token,
+      user: {
+        id: user._id,
+        username: user.u_name
+      }
+    };
+  } catch (error) {
+    return error;
+  }
 }
 
 export async function forgotPassword({ email }) {

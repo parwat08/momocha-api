@@ -1,3 +1,4 @@
+import _ from "lodash";
 import UserModel from "../models/user.model";
 
 export async function getUsers(params) {
@@ -18,11 +19,25 @@ export async function getUserById(userId) {
   }
 }
 
+export async function postUser(userDetails) {}
+
 export async function updateUserById(userId, userDetails) {
   try {
-    const user = await UserModel.findByIdAndUpdate(userId, userDetails, {
-      new: true
-    }).exec();
+    const updateableFields = _.pick(userDetails, [
+      "f_name",
+      "l_name",
+      "mobileNumber",
+      "country",
+      "mobileNumber",
+      "city",
+      "age"
+    ]);
+
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      { $set: updateableFields },
+      { new: true }
+    ).exec();
 
     return user;
   } catch (error) {

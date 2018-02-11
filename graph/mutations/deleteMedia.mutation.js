@@ -5,7 +5,7 @@ import {
   GraphQLNonNull
 } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { deleteMedia } from "../../server/services/media.service";
+import { deleteMedia } from "../../server/query/media.query";
 
 export default mutationWithClientMutationId({
   name: "deleteMedia",

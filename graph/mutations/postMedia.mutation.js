@@ -1,12 +1,6 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLNonNull,
-  GraphQLList
-} from "graphql";
+import { GraphQLString, GraphQLNonNull, GraphQLList } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { postMedia } from "../../server/services/media.service";
+import { postMedia } from "../../server/query/media.query";
 
 export default mutationWithClientMutationId({
   name: "postMedia",
