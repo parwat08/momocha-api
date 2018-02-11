@@ -6,7 +6,7 @@ import {
   GraphQLList
 } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { updateMedia } from "../../server/services/media.service";
+import { updateMedia } from "../../server/query/media.query";
 
 export default mutationWithClientMutationId({
   name: "updateMedia",

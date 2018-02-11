@@ -5,7 +5,7 @@ import {
   GraphQLNonNull
 } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { updateProfile } from "../../server/services/user.service";
+import { updateProfile } from "../../server/query/user.query";
 
 export default mutationWithClientMutationId({
   name: "updateProfile",

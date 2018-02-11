@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from "graphql";
 
 import signupMutation from "./signup.mutation";
-import loginMutation from "./signup.mutation";
+import loginMutation from "./login.mutation";
 import resetPasswordMutation from "./resetPassword.mutation";
 import updateProfileMutation from "./updateProfile.mutation";
 import postMediaMutation from "./postMedia.mutation";

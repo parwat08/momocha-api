@@ -1,6 +1,6 @@
 import { GraphQLString, GraphQLNonNull } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { signup } from "../../server/services/auth.service";
+import { signup } from "../../server/query/auth.query";
 
 export default mutationWithClientMutationId({
   name: "SignUp",

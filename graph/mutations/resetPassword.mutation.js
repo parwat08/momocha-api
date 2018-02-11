@@ -5,7 +5,7 @@ import {
   GraphQLNonNull
 } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { resetPassword } from "../../server/services/auth.service";
+import { resetPassword } from "../../server/query/auth.query";
 
 export default mutationWithClientMutationId({
   name: "resetPassword",

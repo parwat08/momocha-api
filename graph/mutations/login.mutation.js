@@ -2,6 +2,8 @@ import { GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { login } from "../../server/query/auth.query";
 
+import userType from "../types/user.type";
+
 export default mutationWithClientMutationId({
   name: "LogIn",
   inputFields: {
@@ -17,12 +19,7 @@ export default mutationWithClientMutationId({
       type: GraphQLString
     },
     user: {
-      id: {
-        type: GraphQLID
-      },
-      username: {
-        type: GraphQLString
-      }
+      type: userType
     }
   },
   mutateAndGetPayload(inputFields) {

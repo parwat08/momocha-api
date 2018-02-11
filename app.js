@@ -3,9 +3,10 @@ import express from "express";
 // import bodyParser from 'body-parser';
 import expressGraphQL from "express-graphql";
 // import dotenv from 'dotenv';
-import { introspectionQuery, buildASTSchema } from "graphql/utilities";
-import graphql from "graphql";
-import fs from "fs";
+// import { introspectionQuery, buildASTSchema } from "graphql/utilities";
+// import graphql from "graphql";
+// import fs from "fs";
+import chalk from "chalk";
 
 import schema from "./graph/schema";
 import routes from "./server/routes";
@@ -25,17 +26,20 @@ app.use(
     graphiql: true
   })
 );
-(async function() {
-  console.log("===================", schema);
-  // const json = await graphql(schema, introspectionQuery);
-  fs.writeFile("./schema.json", JSON.stringify(json, undefined, 2), err => {
-    if (err) throw err;
-    console.log("JSON schema generated!");
-  });
-});
+// (async function() {
+//   console.log("===================", schema);
+//   // const json = await graphql(schema, introspectionQuery);
+//   fs.writeFile("./schema.json", JSON.stringify(json, undefined, 2), err => {
+//     if (err) throw err;
+//     console.log("JSON schema generated!");
+//   });
+// });
 
 app.listen(port, err => {
   if (err) return console.log("error starting the server");
   // open(`http://localhost:${port}/graphql`);
-  return console.log(`Server listenig on port: ${port}`);
+
+  return console.log(
+    chalk.greenBright(`Server listenig on port: ${chalk.bold(port)}`)
+  );
 });
