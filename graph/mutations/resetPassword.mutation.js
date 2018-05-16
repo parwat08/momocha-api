@@ -1,14 +1,9 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLNonNull
-} from "graphql";
+import { GraphQLString, GraphQLNonNull } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { resetPassword } from "../../server/query/auth.query";
 
 export default mutationWithClientMutationId({
-  name: "resetPassword",
+  name: "ResetPassword",
   inputFields: {
     email: {
       type: new GraphQLNonNull(GraphQLString)

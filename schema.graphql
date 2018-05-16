@@ -1,0 +1,210 @@
+schema {
+  query: RootQueryType
+  mutation: Mutation
+}
+
+input AvatarInput {
+  name: String!
+  clientMutationId: String
+}
+
+type AvatarPayload {
+  avatar: String
+  clientMutationId: String
+}
+
+input DeleteMediaInput {
+  _id: String!
+  clientMutationId: String
+}
+
+type DeleteMediaPayload {
+  msg: String
+  clientMutationId: String
+}
+
+input LogInInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type LogInPayload {
+  token: String
+  user: User
+  clientMutationId: String
+}
+
+type Media {
+  id: ID!
+  caption: String
+  duration: String
+  language: String
+  media_url: String
+  poster_url: String
+  shares: String
+  momochas: String
+  listens: String
+  uploadedDate: String
+  tags: [String]
+  media_type: String
+}
+
+"""A connection to a list of items."""
+type mediaConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [mediaEdge]
+}
+
+"""An edge in a connection."""
+type mediaEdge {
+  """The item at the end of the edge"""
+  node: Media
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Mutation {
+  signup(input: SignUpInput!): SignUpPayload
+  login(input: LogInInput!): LogInPayload
+  resetPassword(input: ResetPasswordInput!): ResetPasswordPayload
+  updateProfile(input: UpdateProfileInput!): UpdateProfilePayload
+  postMedia(input: PostMediaInput!): PostMediaPayload
+  updateMedia(input: UpdateMediaInput!): UpdateMediaPayload
+  deleteMedia(input: DeleteMediaInput!): DeleteMediaPayload
+  postAvatar(input: AvatarInput!): AvatarPayload
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+input PostMediaInput {
+  caption: String!
+  language: String!
+  tags: [String]
+  category: String!
+  clientMutationId: String
+}
+
+type PostMediaPayload {
+  msg: String
+  clientMutationId: String
+}
+
+input ResetPasswordInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type ResetPasswordPayload {
+  msg: String
+  clientMutationId: String
+}
+
+type RootQueryType {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+  viewer: Viewer
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type SignUpPayload {
+  msg: String
+  clientMutationId: String
+}
+
+input UpdateMediaInput {
+  _uploaderId: String!
+  _id: String!
+  caption: String!
+  language: String!
+  tags: [String]
+  category: String!
+  clientMutationId: String
+}
+
+type UpdateMediaPayload {
+  msg: String
+  clientMutationId: String
+}
+
+input UpdateProfileInput {
+  _id: String
+  email: String
+  u_name: String
+  f_name: String
+  country: String
+  mobileNumber: String
+  city: String
+  age: String
+  clientMutationId: String
+}
+
+type UpdateProfilePayload {
+  msg: String
+  clientMutationId: String
+}
+
+type User {
+  id: ID!
+  firstName: String
+  lastName: String
+  userName: String
+  email: String
+}
+
+"""A connection to a list of items."""
+type userConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [userEdge]
+}
+
+"""An edge in a connection."""
+type userEdge {
+  """The item at the end of the edge"""
+  node: User
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+type Viewer implements Node {
+  """The ID of an object"""
+  id: ID!
+  user(after: String, first: Int, before: String, last: Int): userConnection
+  media(after: String, first: Int, before: String, last: Int): mediaConnection
+}

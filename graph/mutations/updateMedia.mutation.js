@@ -1,15 +1,9 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLNonNull,
-  GraphQLList
-} from "graphql";
+import { GraphQLString, GraphQLNonNull, GraphQLList } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { updateMedia } from "../../server/query/media.query";
 
 export default mutationWithClientMutationId({
-  name: "updateMedia",
+  name: "UpdateMedia",
   inputFields: {
     _uploaderId: {
       type: new GraphQLNonNull(GraphQLString)

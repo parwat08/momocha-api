@@ -6,6 +6,7 @@ const SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema(
   {
+    avatar: String,
     email: {
       type: String,
       required: true,
@@ -37,6 +38,7 @@ const userSchema = new Schema(
   }
 );
 
+/* eslint-disable func-names */
 userSchema.pre("save", function(cb) {
   const user = this;
 

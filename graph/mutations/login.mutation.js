@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLNonNull, GraphQLID } from "graphql";
+import { GraphQLString, GraphQLNonNull } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { login } from "../../server/query/auth.query";
 

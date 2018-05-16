@@ -4,6 +4,7 @@ import UserModel from "../models/user.model";
 export async function getUsers(params) {
   try {
     const users = await UserModel.find(params).exec();
+    console.log("users: ", users);
     return users;
   } catch (error) {
     return error;

@@ -1,38 +1,33 @@
-import {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLBoolean,
-  GraphQLNonNull
-} from "graphql";
+import { GraphQLString, GraphQLNonNull } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { updateProfile } from "../../server/query/user.query";
 
 export default mutationWithClientMutationId({
-  name: "updateProfile",
+  name: "UpdateProfile",
   inputFields: {
     _id: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     email: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     u_name: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     f_name: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     country: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     mobileNumber: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     city: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     },
     age: {
-      type: new GraphQLNonNull(GraphQLString)
+      type: GraphQLString
     }
   },
   outputFields: {
@@ -40,7 +35,8 @@ export default mutationWithClientMutationId({
       type: GraphQLString
     }
   },
-  mutateAndGetPayload(inputFields) {
-    return updateProfile(inputFields);
+  mutateAndGetPayload(inputFields, context, info) {
+    console.log(context.file);
+    // return updateProfile(inputFields);
   }
 });

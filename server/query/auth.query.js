@@ -10,8 +10,10 @@ export async function signup({ email, password }) {
     const user = await UserModel.findOne({ email }).exec();
     if (user) return "Email already registered!";
 
-    const u = UserModel.create({ email, password });
-    return u;
+    await UserModel.create({ email, password });
+    return {
+      msg: "User signup done!"
+    };
   } catch (error) {
     return error;
   }

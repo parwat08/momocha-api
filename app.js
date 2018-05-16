@@ -1,31 +1,44 @@
 import express from "express";
+import chalk from "chalk";
+import expressGraphQL from "express-graphql";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+import cors from "cors";
 // import open from "open";
 // import bodyParser from 'body-parser';
-import expressGraphQL from "express-graphql";
 // import dotenv from 'dotenv';
-// import { introspectionQuery, buildASTSchema } from "graphql/utilities";
+import { printSchema } from "graphql";
 // import graphql from "graphql";
 // import fs from "fs";
-import chalk from "chalk";
 
 import schema from "./graph/schema";
 import routes from "./server/routes";
 import mongoConnection from "./server/config/mongo.config";
-
+import uploadR from "./server/routes/rest.api.route";
 const app = express();
 // dotenv.load({
 //     path: '.env',
 // });
 mongoConnection(app);
 const port = process.env.PORT || 8000;
-app.use("/api", routes);
+const upload = multer({ dest: "uploads/" }).single("avatar");
+
+app.use(cors());
+// app.use(upload);
 app.use(
   "/graphql",
-  expressGraphQL({
+  expressGraphQL(req => ({
     schema,
-    graphiql: true
-  })
+    graphiql: true,
+    rootValue: { req }
+  }))
 );
+app.get("/", function(req, res) {
+  res.send("Welcome to graphql API!");
+});
+
+app.post("/upload-music", upload, uploadR);
 // (async function() {
 //   console.log("===================", schema);
 //   // const json = await graphql(schema, introspectionQuery);
@@ -35,6 +48,11 @@ app.use(
 //   });
 // });
 
+// const schemaPath = path.resolve(__dirname, "schema.graphql");
+// console.log("scp", schemaPath, printSchema);
+// fs.writeFileSync(schemaPath, printSchema(schema));
+
+// routes(app); // passing app instance
 app.listen(port, err => {
   if (err) return console.log("error starting the server");
   // open(`http://localhost:${port}/graphql`);

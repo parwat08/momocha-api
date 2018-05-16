@@ -3,7 +3,7 @@ import { mutationWithClientMutationId } from "graphql-relay";
 import { postMedia } from "../../server/query/media.query";
 
 export default mutationWithClientMutationId({
-  name: "postMedia",
+  name: "PostMedia",
   inputFields: {
     caption: {
       type: new GraphQLNonNull(GraphQLString)

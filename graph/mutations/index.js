@@ -7,6 +7,7 @@ import updateProfileMutation from "./updateProfile.mutation";
 import postMediaMutation from "./postMedia.mutation";
 import updateMediaMutation from "./updateMedia.mutation";
 import deleteMediaMutation from "./deleteMedia.mutation";
+import postAvatarMutation from "./file_mutations/avatar.mutation";
 
 export default new GraphQLObjectType({
   name: "Mutation",
@@ -17,6 +18,7 @@ export default new GraphQLObjectType({
     updateProfile: updateProfileMutation,
     postMedia: postMediaMutation,
     updateMedia: updateMediaMutation,
-    deleteMedia: deleteMediaMutation
+    deleteMedia: deleteMediaMutation,
+    postAvatar: postAvatarMutation
   })
 });
